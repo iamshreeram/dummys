@@ -1,0 +1,158 @@
+
+##################### setting all alias #############################
+# Kubernetes
+alias k=kubectl
+alias kns=kubens 
+
+# sledge completion
+# source <(sledge completion)
+
+# Conda Aliases
+alias cndc='conda create -n'
+alias cnda='conda activate'
+alias cndd='conda deactivate'
+alias cndr='conda env remove --name'
+alias cls='clear'
+alias htserver='python3 -m http.server'
+
+
+# Alias for Folder navigation
+alias gotoapps='cd /Users/s0v00nr/ram/apps/'
+alias gotoproj='cd /Users/s0v00nr/ram/project'
+
+
+# Alias util
+alias ..='cd ..'
+alias ...='cd ../.'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+alias ls="/bin/ls $LS_OPTIONS"
+alias ll='ls -l'
+alias lsd='ls -ld'
+alias la='ls -a'
+alias lf='ls -F'
+alias lr='ls -alFRt'
+alias lx='ls -xF'
+alias llar='ls -laFR'
+alias lt='ls -lartF'
+alias lrt='ls -lrt'
+alias lh='ls -larth'
+
+alias up='cd ..'
+alias up2='cd ../.'
+alias up3='cd ../../..'
+alias up4='cd ../../../..'
+alias up5='cd ../../../../..'
+alias pe='printenv'
+alias senv='env | sort'
+alias pu='pushd'
+alias po='popd'
+alias pud='pushd .'
+alias rot='pushd +1'
+alias jobs='jobs -l'
+alias mroe=more
+alias lses=less
+alias lsse=less
+alias l=ls
+alias f=file
+alias c=cat
+alias m=more
+alias j=jobs
+# alias k=kill
+alias d=dirs
+alias h=history
+alias his=history
+alias hm='history | less'
+alias sy3='sync; sync; sync; echo "sync 3 times ..."'
+alias del='rm -i'
+alias bye=exit
+alias ciao=exit
+alias kcm=kubecm
+alias gpj="gotoproj"
+alias gap="gotoapps"
+
+
+# pypy alias
+alias pypypython='/Users/s0v00nr/ram/apps/pypy/pypy3.10-v7.3.13-macos_arm64/bin/python3'
+alias pypypip='/Users/s0v00nr/ram/apps/pypy/pypy3.10-v7.3.13-macos_arm64/bin/pip3'
+alias pypyjupyter='/Users/s0v00nr/ram/apps/pypy/pypy3.10-v7.3.13-macos_arm64/bin/jupyter'
+alias pypyjup-note='/Users/s0v00nr/ram/apps/pypy/pypy3.10-v7.3.13-macos_arm64/bin/jupyter-notebook'
+
+# Git alias
+alias ginit='git init'
+alias gadd='git add *'
+alias gcom='git commit'
+alias gclon='git clone'
+alias gstat='git status'
+alias gswmt='git setwmt'
+alias gslive='git setlive'
+alias gpush='git push origin'
+alias gfetch='git fetch'
+alias gpull='git pull'
+alias gstash='git stash'
+## Some quick GIT alias
+# alias gpull='git pull origin master'
+# alias gpush='git push origin master'
+# As a platform engineer, I want to configure Git cache to remember my password for one month on average
+alias set_git_cache='git config --global credential.helper "cache --timeout=2548800" '
+
+# alias for connecting to python server
+alias bpyth='python3 /Users/s0v00nr/ram/apps/boss/boss/boss_script.py -i '
+
+
+##################### setting fn defnitions #############################
+
+
+
+function gitsetpass
+	git config --global --unset user.password
+	git config --global --add user.password $argv[1]
+end
+
+function jup
+	jupyter notebook --port 8000
+end
+
+function jupml
+    jupyter notebook --port 8000 --notebook-dir='/Users/s0v00nr/ram/project/ML'
+end
+
+function deepl
+	cnda ludw
+	jupml
+end
+
+
+# Kubernetes logs : stern
+function ilog
+        stern $argv[1] -n $argv[2] -o raw --tail 1
+end
+
+
+
+##################### setting env variables #############################
+
+set -x HOST localhost
+set -U EDITOR vim
+# to unset fish_greeting on load
+set fish_greeting
+
+
+
+
+
+function fish_prompt
+    if test -n "$SSH_TTY"
+        echo -n (set_color brred)"$USER"(set_color white)'@'(set_color yellow)(prompt_hostname)' '
+    end
+
+    echo -n (set_color green)(prompt_pwd)' '
+
+    set_color -o
+    if test "$USER" = 'root'
+        echo -n (set_color red)'# '
+    end
+    echo -n (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
+    set_color normal
+end
